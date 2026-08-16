@@ -4,15 +4,21 @@ App web (PWA) para registrar gastos em Pix, crédito ou débito. Os dados ficam 
 
 O app da tela inicial usa `index.html` + JavaScript. O Flask em `app.py` é opcional: serve o mesmo site e ainda expõe uma API SQLite, mas o painel **não depende** dela.
 
-## Rodar no computador
+## Abrir no computador (sem servidor)
 
-Abra a pasta do projeto e suba um servidor local (o PWA precisa de `http://localhost`, não de arquivo `file://`):
+Dê dois cliques em `gastos_app/index.html`, ou cole no Chrome:
+
+`file:///C:/Users/PICHAU/Downloads/gastos_app/gastos_app/index.html`
+
+Os gastos continuam salvos neste navegador. Instalar como app no celular precisa do site no GitHub Pages (HTTPS).
+
+## Rodar com servidor local (opcional)
 
 ```
 python -m http.server 8080
 ```
 
-Depois acesse: http://localhost:8080
+Depois acesse: http://localhost:8080/gastos_app/
 
 ### Servidor Flask (opcional)
 
@@ -65,16 +71,13 @@ Os gastos **não sincronizam** entre celular e computador. Use **Exportar backup
 ## Estrutura
 
 ```
-gastos_app/
-├── index.html              # Painel (PWA)
-├── manifest.webmanifest    # Nome, ícone e modo app
-├── sw.js                   # Funciona offline depois da 1ª visita
-├── static/
-│   ├── style.css
-│   ├── script.js
-│   ├── pessoas.js
-│   └── icons/
-├── app.py                  # Flask opcional (API + mesmo site)
+gastos_app/                     # pasta do projeto
+├── gastos_app/
+│   ├── index.html              # Abra este arquivo no Chrome
+│   ├── manifest.webmanifest
+│   ├── sw.js
+│   └── static/
+├── app.py
 └── requirements.txt
 ```
 

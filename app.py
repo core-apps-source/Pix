@@ -4,7 +4,8 @@ import os
 from datetime import datetime
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-app = Flask(__name__, static_folder="static")
+APP_DIR = os.path.join(ROOT, "gastos_app")
+app = Flask(__name__, static_folder=os.path.join(APP_DIR, "static"), static_url_path="/static")
 DB_PATH = os.path.join(ROOT, "gastos.db")
 
 
@@ -59,17 +60,17 @@ def validar_dados(dados):
 
 @app.route("/")
 def index():
-    return send_from_directory(ROOT, "index.html")
+    return send_from_directory(APP_DIR, "index.html")
 
 
 @app.route("/manifest.webmanifest")
 def manifest():
-    return send_from_directory(ROOT, "manifest.webmanifest", mimetype="application/manifest+json")
+    return send_from_directory(APP_DIR, "manifest.webmanifest", mimetype="application/manifest+json")
 
 
 @app.route("/sw.js")
 def service_worker():
-    resposta = send_from_directory(ROOT, "sw.js", mimetype="application/javascript")
+    resposta = send_from_directory(APP_DIR, "sw.js", mimetype="application/javascript")
     resposta.headers["Service-Worker-Allowed"] = "/"
     resposta.headers["Cache-Control"] = "no-cache"
     return resposta
