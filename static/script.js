@@ -510,6 +510,7 @@ $("arquivo-importar").onchange = (evento) => {
       } else {
         throw new Error();
       }
+      if (!novos.length) throw new Error();
       gastos = novos;
       salvarGastos();
       renderizar();
