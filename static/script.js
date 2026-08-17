@@ -465,6 +465,33 @@ $("btn-exportar-minhas").onclick = () => {
   mostrarToast("Arquivo pronto para importar no Minhas Finanças.");
 };
 
+function converterMinhasFinancas(dados) {
+  const lista = [];
+  (dados.pix || []).forEach((g) => {
+    lista.push({
+      id: g.sync_id ? String(g.sync_id).replace("gastos-app:", "") : `imp-${g.id}`,
+      descricao: String(g.descricao || g.item || "").trim(),
+      valor: Number(g.valor) || 0,
+      metodo: "pix",
+      categoria: g.categoria || "Outros",
+      data: g.data_original || `${g.mes}-01`,
+      pessoa: g.pessoa || "",
+    });
+  });
+  (dados.avista || []).forEach((g) => {
+    lista.push({
+      id: `imp-${g.id}`,
+      descricao: String(g.descricao || g.item || "").trim(),
+      valor: Number(g.valor) || 0,
+      metodo: "credito",
+      categoria: "Cartão de crédito",
+      data: g.data_original || `${g.mes}-01`,
+      pessoa: g.pessoa || "",
+    });
+  });
+  return lista;
+}
+
 $("arquivo-importar").onchange = (evento) => {
   const arquivo = evento.target.files[0];
   evento.target.value = "";
@@ -473,11 +500,20 @@ $("arquivo-importar").onchange = (evento) => {
   leitor.onload = () => {
     try {
       const dados = JSON.parse(leitor.result);
-      if (!Array.isArray(dados)) throw new Error();
-      gastos = dados;
+      let novos;
+      if (Array.isArray(dados)) {
+        novos = dados;
+      } else if (dados && dados.formato === "gastos_app_v1" && Array.isArray(dados.gastos)) {
+        novos = dados.gastos;
+      } else if (dados && (Array.isArray(dados.pix) || Array.isArray(dados.avista))) {
+        novos = converterMinhasFinancas(dados);
+      } else {
+        throw new Error();
+      }
+      gastos = novos;
       salvarGastos();
       renderizar();
-      mostrarToast("Backup importado.");
+      mostrarToast(`Backup importado (${novos.length} gastos).`);
     } catch {
       mostrarToast("Arquivo de backup inválido.", true);
     }
