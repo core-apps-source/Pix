@@ -1,4 +1,4 @@
-const CACHE = "financo-v2";
+const CACHE = "pix-v3";
 const PRECACHE = [
   "./",
   "./index.html",

@@ -1,4 +1,4 @@
-# Finanço — Controle de gastos
+# Pix — Controle de gastos
 
 App web (PWA) para registrar gastos em Pix, crédito ou débito. Os dados ficam salvos **neste aparelho** (navegador). Dá para exportar e importar um backup em JSON.
 
@@ -62,7 +62,7 @@ git push -u origin main
 
 1. Abra o site do GitHub Pages **no Chrome**.
 2. Toque no botão **Instalar app** (se aparecer) ou no menu ⋮ → **Instalar app** / **Adicionar à tela inicial**.
-3. O Finanço abre em tela cheia, como um app.
+3. O Pix abre em tela cheia, como um app.
 
 No iPhone: Safari → botão de compartilhar → **Adicionar à Tela de Início**.
 

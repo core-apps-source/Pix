@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "Finanço — Controle de gastos",
-  "short_name": "Finanço",
+  "name": "Pix — Controle de gastos",
+  "short_name": "Pix",
   "description": "Registre gastos em Pix, crédito ou débito e acompanhe o resumo no celular.",
   "start_url": "./",
   "scope": "./",
